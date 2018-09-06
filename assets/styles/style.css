@@ -1,0 +1,20 @@
+.jewel {
+    height: 200px;
+    width: 200px;
+}
+
+#jewel_1 {
+    background-color: aqua;
+}
+
+#jewel_2 {
+    background-color: rgb(132, 0, 255);
+}
+
+#jewel_3 {
+    background-color: greenyellow;
+}
+
+#jewel_4 {
+    background-color: red;
+}
