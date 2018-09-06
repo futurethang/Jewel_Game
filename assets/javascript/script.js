@@ -17,7 +17,7 @@ var $jewelImg2 = "<img class='jewel_img' src='assets/images/blue_jewel.png' />";
 var $jewelImg3 = "<img class='jewel_img' src='assets/images/purple_jewel.png' />";
 var $jewelImg4 = "<img class='jewel_img' src='assets/images/yellow_jewel.png' />";
 
-var gameReset = "<button class='reset' id='reset'>start a new game</button>";
+var gameResetButton = "<button class='reset' id='reset'>start a new game</button>";
 var gamesWon = 0;
 var gamesLost = 0;
 
@@ -32,59 +32,66 @@ function jewelNumber() {
 function numberMatch(target, answer) {
     if (target === answer) {
         console.log("GAME WON!")
+        gamesWon++;
+        $("#wins").text(gamesWon);
         gameWon();
+        $("#reset").on("click", function(){
+            $(".jewel_img").jqFloat("stop");
+            $(".jewel_img").remove();
+            gameReset();
+        });
     } else if (answer > target) {
-        console.log("YOU LOSE!")
-        gameOver(target,answer)
+        console.log("YOU LOSE!");
+        gamesLost++;
+        $("#losses").text(gamesLost);
+        gameOver(target,answer);
+        $("#reset").on("click", function(){
+            $(".jewel_img").jqFloat("stop");
+            $(".jewel_img").remove();
+            gameReset();
+        });
     }
 }
 
 function gameReset() {
     target = guessNumber();
+    answer = 0;
+    $jewel1.empty();
+    $jewel2.empty();
+    $jewel3.empty();
+    $jewel4.empty();
     console.log(target);
     $targetNumber.empty();
     $targetNumber.html("<h2 class='centered'>" + target + "</h2>");
     $("#targetNumber").hide().append($jewelImgTarget);
-    $("#targetNumber").fadeIn(3000);
-    
-    setTimeout(createJewels, 4000);
+    $("#targetNumber").fadeTo(3000, 1);
+    setTimeout(createJewels, 3000);
     // createJewels();
 
     $answerZone.text("Your Guess Here");
 
-    $(".jewel").on("click", function() {
-        console.log("ready");
-        answer += parseInt($(this).attr("numberID"));
-        $answerZone.text(answer);
-        numberMatch(target,answer);
-    })
+    // $(".jewel_img").on("click", function() {
+    //     console.log("ready");
+    //     answer += parseInt($(this).attr("numberID"));
+    //     $answerZone.text(answer);
+    //     numberMatch(target,answer);
+    // })
 }
 
 function gameOver(target,answer) {
     alert("Oh shucks, you overshot the answer by " + parseInt(answer - target) + "!");
-    $jewel1.animate({opacity: 0, top: "+=2000"}, 3000)
-    $jewel2.animate({opacity: 0, top: "+=2000"}, 3000)
-    $jewel3.animate({opacity: 0, top: "+=2000"}, 3000)
-    $jewel4.animate({opacity: 0, top: "+=2000"}, 3000)
-    $(".jewel").fadeOut(3000);
+    $(".jewel_img").jqFloat('stop');
+    $(".jewel_img").animate({opacity: 0, top: "+=2000"}, 3000);
+    $(".jewel_img").fadeOut(3000);
     // $(".jewel").jqFloat({width:2000, height:2000, speed:200}).fadeOut(3000);
     $("#targetNumber").fadeTo(3000, .1);
-    $answerZone.empty().append(gameReset);
-    $("#reset").on("click", function(){
-        gamesLost++;
-        window.gameReset();
-        console.log(gamesLost);
-    })
+    $answerZone.empty().append(gameResetButton);
 }
 
-function gameWon(target,answer) {
+function gameWon() {
     alert("You got it!");
-    $(".jewel").jqFloat({width:700, height:700, speed:200});
-    $answerZone.empty().append(gameReset);
-    $("#reset").on("click", function(){
-        gamesWon++;
-        gameReset;
-    })
+    $(".jewel_img").jqFloat({width:700, height:700, speed:200});
+    $answerZone.empty().append(gameResetButton);
 }
 
 function createTargetJewel() {
@@ -93,17 +100,17 @@ function createTargetJewel() {
 }
 
 function createJewels() {
-    $jewel1.attr("numberID", jewelNumber());
-    $jewel1.hide().append($jewelImg1);
+    $jewel1.attr({"numberID": jewelNumber(), "style": "top: 0px, left: 0px"});
+    $jewel1.hide().html($jewelImg1);
     $jewel1.fadeIn(500);
-    $jewel2.attr("numberID", jewelNumber());
-    $jewel2.hide().append($jewelImg2);
+    $jewel2.attr({"numberID": jewelNumber(), "style": "top: 0px, left: 0px"});
+    $jewel2.hide().html($jewelImg2);
     $jewel2.fadeIn(500);
-    $jewel3.attr("numberID", jewelNumber());
-    $jewel3.hide().append($jewelImg4);
+    $jewel3.attr({"numberID": jewelNumber(), "style": "top: 0px, left: 0px"});
+    $jewel3.hide().html($jewelImg4);
     $jewel3.fadeIn(500);
-    $jewel4.attr("numberID", jewelNumber());
-    $jewel4.hide().append($jewelImg3);
+    $jewel4.attr({"numberID": jewelNumber(), "style": "top: 0px, left: 0px"});
+    $jewel4.hide().html($jewelImg3);
     $jewel4.fadeIn(500);
 
     $(".jewel_img").jqFloat({width:20, height:20, speed:2000});
@@ -117,7 +124,7 @@ $(document).ready(function () {
     $targetNumber.html("<h2 class='centered'>" + target + "</h2>");
 
     createTargetJewel();
-    setTimeout(createJewels, 4000);
+    setTimeout(createJewels, 3000);
     // createJewels();
 
     $answerZone.text("Your Guess Here");
