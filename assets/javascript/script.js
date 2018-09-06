@@ -10,6 +10,7 @@ var $answerZone = $("#answerZone");
 
 var answer = 0;
 
+var $jewelImgTarget = "<img class='jewel_img_target' src='assets/images/big_jewel.png' />";
 var $jewelImg1 = "<img class='jewel_img' src='assets/images/red_jewel.png' />";
 var $jewelImg2 = "<img class='jewel_img' src='assets/images/blue_jewel.png' />";
 var $jewelImg3 = "<img class='jewel_img' src='assets/images/purple_jewel.png' />";
@@ -33,6 +34,28 @@ function numberMatch(target, answer) {
     }
 }
 
+function createTargetJewel() {
+    $("#targetNumber").hide().append($jewelImgTarget);
+    $("#targetNumber").fadeIn(3000);
+}
+
+function createJewels() {
+    $jewel1.attr("numberID", jewelNumber());
+    $jewel1.hide().append($jewelImg1);
+    $jewel1.fadeIn(500);
+    $jewel2.attr("numberID", jewelNumber());
+    $jewel2.hide().append($jewelImg2);
+    $jewel2.fadeIn(500);
+    $jewel3.attr("numberID", jewelNumber());
+    $jewel3.hide().append($jewelImg4);
+    $jewel3.fadeIn(500);
+    $jewel4.attr("numberID", jewelNumber());
+    $jewel4.hide().append($jewelImg3);
+    $jewel4.fadeIn(500);
+
+    $(".jewel_img").jqFloat({width:20, height:20, speed:2000});
+}
+
 $(document).ready(function () {
     console.log(guessNumber());
     console.log(jewelNumber());
@@ -40,16 +63,9 @@ $(document).ready(function () {
     var target = guessNumber();
     $targetNumber.text(target);
 
-    $jewel1.attr("numberID", jewelNumber());
-    $jewel1.append($jewelImg1);
-    $jewel2.attr("numberID", jewelNumber());
-    $jewel2.append($jewelImg2);
-    $jewel3.attr("numberID", jewelNumber());
-    $jewel3.append($jewelImg3);
-    $jewel4.attr("numberID", jewelNumber());
-    $jewel4.append($jewelImg4);
-
-    $(".jewel_img").jqFloat({width:20, height:20, speed:2000});
+    createTargetJewel();
+    setTimeout(createJewels, 4000);
+    // createJewels();
 
     $answerZone.text("Your Guess Here");
 
