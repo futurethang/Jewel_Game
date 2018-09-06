@@ -39,6 +39,15 @@
     top: 500px;
 }
 
+#counterZone {
+    font-size: 2em;
+    text-align: center;
+    font-family: 'Sniglet', cursive;
+    font-weight: 400;
+    position: absolute;
+    top: 555px;
+}
+
 .targetNumber {
     height: 100%;
     position: absolute;

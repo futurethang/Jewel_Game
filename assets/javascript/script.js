@@ -8,6 +8,7 @@ var $targetNumber = $("#targetNumber");
 
 var $answerZone = $("#answerZone");
 
+var target;
 var answer = 0;
 
 var $jewelImgTarget = "<img class='jewel_img_target' src='assets/images/big_jewel.png' />";
@@ -38,6 +39,27 @@ function numberMatch(target, answer) {
     }
 }
 
+function gameReset() {
+    target = guessNumber();
+    console.log(target);
+    $targetNumber.empty();
+    $targetNumber.html("<h2 class='centered'>" + target + "</h2>");
+    $("#targetNumber").hide().append($jewelImgTarget);
+    $("#targetNumber").fadeIn(3000);
+    
+    setTimeout(createJewels, 4000);
+    // createJewels();
+
+    $answerZone.text("Your Guess Here");
+
+    $(".jewel").on("click", function() {
+        console.log("ready");
+        answer += parseInt($(this).attr("numberID"));
+        $answerZone.text(answer);
+        numberMatch(target,answer);
+    })
+}
+
 function gameOver(target,answer) {
     alert("Oh shucks, you overshot the answer by " + parseInt(answer - target) + "!");
     $jewel1.animate({opacity: 0, top: "+=2000"}, 3000)
@@ -50,7 +72,8 @@ function gameOver(target,answer) {
     $answerZone.empty().append(gameReset);
     $("#reset").on("click", function(){
         gamesLost++;
-        gameReset();
+        window.gameReset();
+        console.log(gamesLost);
     })
 }
 
@@ -60,7 +83,7 @@ function gameWon(target,answer) {
     $answerZone.empty().append(gameReset);
     $("#reset").on("click", function(){
         gamesWon++;
-        gameReset();
+        gameReset;
     })
 }
 
@@ -90,7 +113,7 @@ $(document).ready(function () {
     console.log(guessNumber());
     console.log(jewelNumber());
 
-    var target = guessNumber();
+    target = guessNumber();
     $targetNumber.html("<h2 class='centered'>" + target + "</h2>");
 
     createTargetJewel();
