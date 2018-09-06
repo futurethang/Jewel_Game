@@ -16,6 +16,10 @@ var $jewelImg2 = "<img class='jewel_img' src='assets/images/blue_jewel.png' />";
 var $jewelImg3 = "<img class='jewel_img' src='assets/images/purple_jewel.png' />";
 var $jewelImg4 = "<img class='jewel_img' src='assets/images/yellow_jewel.png' />";
 
+var gameReset = "<button class='reset' id='reset'>start a new game</button>";
+var gamesWon = 0;
+var gamesLost = 0;
+
 function guessNumber() {
     return Math.floor(Math.random() * (121 - 19)) + 19;
 }
@@ -30,8 +34,34 @@ function numberMatch(target, answer) {
         gameWon();
     } else if (answer > target) {
         console.log("YOU LOSE!")
-        gameOver()
+        gameOver(target,answer)
     }
+}
+
+function gameOver(target,answer) {
+    alert("Oh shucks, you overshot the answer by " + parseInt(answer - target) + "!");
+    $jewel1.animate({opacity: 0, top: "+=2000"}, 3000)
+    $jewel2.animate({opacity: 0, top: "+=2000"}, 3000)
+    $jewel3.animate({opacity: 0, top: "+=2000"}, 3000)
+    $jewel4.animate({opacity: 0, top: "+=2000"}, 3000)
+    $(".jewel").fadeOut(3000);
+    // $(".jewel").jqFloat({width:2000, height:2000, speed:200}).fadeOut(3000);
+    $("#targetNumber").fadeTo(3000, .1);
+    $answerZone.empty().append(gameReset);
+    $("#reset").on("click", function(){
+        gamesLost++;
+        gameReset();
+    })
+}
+
+function gameWon(target,answer) {
+    alert("You got it!");
+    $(".jewel").jqFloat({width:700, height:700, speed:200});
+    $answerZone.empty().append(gameReset);
+    $("#reset").on("click", function(){
+        gamesWon++;
+        gameReset();
+    })
 }
 
 function createTargetJewel() {
@@ -61,7 +91,7 @@ $(document).ready(function () {
     console.log(jewelNumber());
 
     var target = guessNumber();
-    $targetNumber.text(target);
+    $targetNumber.html("<h2 class='centered'>" + target + "</h2>");
 
     createTargetJewel();
     setTimeout(createJewels, 4000);
