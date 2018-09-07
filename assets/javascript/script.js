@@ -9,7 +9,7 @@ var $jewel4 = $("#jewel_4");
 var $targetNumber = $("#targetNumber");
 var $answerZone = $("#answerZone");
 var target;
-var answer;
+var answer = 0;
 var gamesWon = 0;
 var gamesLost = 0;
 
@@ -120,7 +120,7 @@ $(document).ready(function () {
     $answerZone.text("Your Guess Here");
 
     $(".jewel").on("click", function() {
-        answer += parseInt($(this).attr("numberID"));
+        answer += parseInt($(this).attr("numberid"));
         $answerZone.text(answer);
         numberMatch(target,answer);
     })
