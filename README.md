@@ -1,5 +1,8 @@
 # Jewel_Game
-A simple javascript guessing game with jQuery, HTML and CSS, based on an assignment for the University of Washington Part Time Full Stack Boot Camp.
+A simple javascript guessing game with jQuery, HTML and CSS, based on an assignment for the University of Washington Part Time Full Stack Boot Camp.  [Play the Jewel Game!](https://futurethang.github.io/Jewel_Game/)
+
+![jewel_game](https://user-images.githubusercontent.com/17099707/45702305-5b513480-bb26-11e8-8277-7eee16eb37f2.png)
+
 
 # Assignment Objectives
 This assignment centered around using exisiting HTML and CSS skills and gaining further skills with jQuery to create a good looking and user-responsive web app. Minimally, the game needed to:
